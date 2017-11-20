@@ -422,6 +422,14 @@ bisect_replay () {
 	test "$#" -eq 1 || die "$(gettext "No logfile given")"
 	test -r "$file" || die "$(eval_gettext "cannot read \$file for replaying")"
 	bisect_reset
+	bisect_replay_file "$file"
+	bisect_auto_next
+}
+
+bisect_replay_file() {
+	file="$1"
+	test "$#" -eq 1 || die "$(gettext "No logfile given")"
+	test -r "$file" || die "$(eval_gettext "cannot read \$file for replaying")"
 	while read git bisect command rev
 	do
 		test "$git $bisect" = "git bisect" || test "$git" = "git-bisect" || continue
@@ -444,7 +452,6 @@ bisect_replay () {
 			die "$(gettext "?? what are you talking about?")" ;;
 		esac
 	done <"$file"
-	bisect_auto_next
 }
 
 bisect_run () {
