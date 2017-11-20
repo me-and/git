@@ -26,6 +26,8 @@ git bisect replay <logfile>
 	replay bisection log.
 git bisect log
 	show bisect log.
+git bisect edit
+	edit and replay bisect log.
 git bisect run <cmd>...
 	use <cmd>... to automatically bisect.
 
@@ -454,6 +456,20 @@ bisect_replay_file() {
 	done <"$file"
 }
 
+bisect_edit () {
+	test -s "$GIT_DIR/BISECT_LOG" || die "$(gettext "We are not bisecting.")"
+	cp "$GIT_DIR/BISECT_LOG" "$GIT_DIR/BISECT_LOG_EDIT"
+	git_editor "$GIT_DIR/BISECT_LOG_EDIT" ||
+		die "$(gettext "Could not execute editor")"
+	test -n "$(git stripspace --strip-comments <"$GIT_DIR/BISECT_LOG_EDIT")" ||
+		die "$(gettext "Nothing to do")"
+	git bisect--helper --bisect-clean-state ||
+		die "$(gettext "Unable to clean repository")"
+	bisect_replay_file "$GIT_DIR/BISECT_LOG_EDIT"
+	rm -f "$GIT_DIR/BISECT_LOG_EDIT"
+	bisect_auto_next
+}
+
 bisect_run () {
 	bisect_next_check fail
 
@@ -625,6 +641,8 @@ case "$#" in
 		bisect_replay "$@" ;;
 	log)
 		bisect_log ;;
+	edit)
+		bisect_edit ;;
 	run)
 		bisect_run "$@" ;;
 	terms)
