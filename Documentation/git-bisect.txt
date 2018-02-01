@@ -22,6 +22,7 @@ on the subcommand:
  git bisect (good|old|<term-old>) [<rev>...]
  git bisect terms [--term-good | --term-bad]
  git bisect skip [(<rev>|<range>)...]
+ git bisect next
  git bisect reset [<commit>]
  git bisect (visualize|view)
  git bisect replay <logfile>
@@ -92,6 +93,17 @@ to ask for the next commit that needs testing.
 Eventually there will be no more revisions left to inspect, and the
 command will print out a description of the first bad commit. The
 reference `refs/bisect/bad` will be left pointing at that commit.
+
+
+Bisect next
+~~~~~~~~~~~
+
+By default, each time you mark a commit as "good" or "bad" (or equivalent), the
+next commit to test will be printed to the terminal and checked out.  If for
+some reason you need to repeat this (such as because you checked out a
+different commit and want to return to the originally suggested commit to
+test), `git bisect next` will repeat this step, printing out the next commit to
+test and (assuming `--no-checkout` wasn't specified), check it out.
 
 
 Bisect reset

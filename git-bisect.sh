@@ -608,7 +608,6 @@ case "$#" in
 	skip)
 		bisect_skip "$@" ;;
 	next)
-		# Not sure we want "next" at the UI level anymore.
 		bisect_next "$@" ;;
 	visualize|view)
 		bisect_visualize "$@" ;;
