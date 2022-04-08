@@ -482,7 +482,7 @@ test_expect_success '--combined-all-paths and --cc' '
 	test_cmp expect actual
 '
 
-test_expect_success FUNNYNAMES 'setup for --combined-all-paths with funny names' '
+test_expect_success FS_NAME_TAB 'setup for --combined-all-paths with funny names' '
 	git branch side1d &&
 	git branch side2d &&
 	git checkout side1d &&
@@ -507,7 +507,7 @@ test_expect_success FUNNYNAMES 'setup for --combined-all-paths with funny names'
 	head=$(git rev-parse HEAD)
 '
 
-test_expect_success FUNNYNAMES '--combined-all-paths and --raw and funny names' '
+test_expect_success FS_NAME_TAB '--combined-all-paths and --raw and funny names' '
 	cat <<-EOF >expect &&
 	::100644 100644 100644 $side1df $side2df $headf RR	"file\twith\ttabs"	"i\tam\ttabbed"	"fickle\tnaming"
 	EOF
@@ -516,13 +516,13 @@ test_expect_success FUNNYNAMES '--combined-all-paths and --raw and funny names' 
 	test_cmp expect actual
 '
 
-test_expect_success FUNNYNAMES '--combined-all-paths and --raw -and -z and funny names' '
+test_expect_success FS_NAME_TAB '--combined-all-paths and --raw -and -z and funny names' '
 	printf "$head\0::100644 100644 100644 $side1df $side2df $headf RR\0file\twith\ttabs\0i\tam\ttabbed\0fickle\tnaming\0" >expect &&
 	git diff-tree -c -M --raw --combined-all-paths -z HEAD >actual &&
 	test_cmp expect actual
 '
 
-test_expect_success FUNNYNAMES '--combined-all-paths and --cc and funny names' '
+test_expect_success FS_NAME_TAB '--combined-all-paths and --cc and funny names' '
 	cat <<-\EOF >expect &&
 	--- "a/file\twith\ttabs"
 	--- "a/i\tam\ttabbed"

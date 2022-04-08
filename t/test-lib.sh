@@ -1700,18 +1700,27 @@ test_lazy_prereq CASE_INSENSITIVE_FS '
 	test "$(cat CamelCase)" != good
 '
 
+test_lazy_prereq FS_NAME_TAB '
+	touch -- "FUNNYNAMES tab	embedded" 2>/dev/null &&
+	rm -- "FUNNYNAMES tab	embedded"  2>/dev/null
+'
+test_lazy_prereq FS_NAME_QUOTE '
+	touch -- "FUNNYNAMES \"quote embedded\"" 2>/dev/null &&
+	rm -- "FUNNYNAMES \"quote embedded\""  2>/dev/null
+'
+test_lazy_prereq FS_NAME_NEWLINE '
+	touch -- "FUNNYNAMES newline
+embedded" 2>/dev/null &&
+	rm -- "FUNNYNAMES newline
+embedded" 2>/dev/null
+'
+
+# Please use a more specific FS_NAME_* check if possible.
 test_lazy_prereq FUNNYNAMES '
 	test_have_prereq !MINGW &&
-	touch -- \
-		"FUNNYNAMES tab	embedded" \
-		"FUNNYNAMES \"quote embedded\"" \
-		"FUNNYNAMES newline
-embedded" 2>/dev/null &&
-	rm -- \
-		"FUNNYNAMES tab	embedded" \
-		"FUNNYNAMES \"quote embedded\"" \
-		"FUNNYNAMES newline
-embedded" 2>/dev/null
+	test_have_prereq FS_NAME_TAB &&
+	test_have_prereq FS_NAME_QUOTE &&
+	test_have_prereq FS_NAME_NEWLINE
 '
 
 test_lazy_prereq UTF8_NFD_TO_NFC '

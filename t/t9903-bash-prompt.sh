@@ -66,11 +66,11 @@ test_expect_success 'prompt - unborn branch' '
 	test_cmp expected "$actual"
 '
 
-if test_have_prereq !FUNNYNAMES; then
+if test_have_prereq !FS_NAME_NEWLINE; then
 	say 'Your filesystem does not allow newlines in filenames.'
 fi
 
-test_expect_success FUNNYNAMES 'prompt - with newline in path' '
+test_expect_success FS_NAME_NEWLINE 'prompt - with newline in path' '
     repo_with_newline="repo
 with
 newline" &&

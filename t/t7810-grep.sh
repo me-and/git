@@ -82,7 +82,7 @@ test_expect_success setup '
 	# Still a no-op.
 	function dummy() {}
 	EOF
-	if test_have_prereq FUNNYNAMES
+	if test_have_prereq FS_NAME_QUOTE
 	then
 		echo unusual >"\"unusual\" pathname" &&
 		echo unusual >"t/nested \"unusual\" pathname"
@@ -525,7 +525,7 @@ do
 		test_cmp expected actual
 	'
 
-	test_expect_success FUNNYNAMES "grep $L should quote unusual pathnames" '
+	test_expect_success FS_NAME_QUOTE "grep $L should quote unusual pathnames" '
 		cat >expected <<-EOF &&
 		${HC}"\"unusual\" pathname":unusual
 		${HC}"t/nested \"unusual\" pathname":unusual
@@ -534,7 +534,7 @@ do
 		test_cmp expected actual
 	'
 
-	test_expect_success FUNNYNAMES "grep $L in subdir should quote unusual relative pathnames" '
+	test_expect_success FS_NAME_QUOTE "grep $L in subdir should quote unusual relative pathnames" '
 		cat >expected <<-EOF &&
 		${HC}"nested \"unusual\" pathname":unusual
 		EOF
@@ -545,7 +545,7 @@ do
 		test_cmp expected actual
 	'
 
-	test_expect_success FUNNYNAMES "grep -z $L with unusual pathnames" '
+	test_expect_success FS_NAME_QUOTE "grep -z $L with unusual pathnames" '
 		cat >expected <<-EOF &&
 		${HC}"unusual" pathname:unusual
 		${HC}t/nested "unusual" pathname:unusual
@@ -555,7 +555,7 @@ do
 		test_cmp expected actual-replace-null
 	'
 
-	test_expect_success FUNNYNAMES "grep -z $L in subdir with unusual relative pathnames" '
+	test_expect_success FS_NAME_QUOTE "grep -z $L in subdir with unusual relative pathnames" '
 		cat >expected <<-EOF &&
 		${HC}nested "unusual" pathname:unusual
 		EOF

@@ -53,9 +53,9 @@ try_filename() {
 
 try_filename 'plain'            'postimage.txt'
 try_filename 'with spaces'      'post image.txt'
-try_filename 'with tab'         'post	image.txt' FUNNYNAMES
+try_filename 'with tab'         'post	image.txt' FS_NAME_TAB
 try_filename 'with backslash'   'post\image.txt' BSLASHPSPEC
-try_filename 'with quote'       '"postimage".txt' FUNNYNAMES success failure success
+try_filename 'with quote'       '"postimage".txt' FS_NAME_QUOTE success failure success
 
 test_expect_success 'whitespace-damaged traditional patch' '
 	echo postimage >expected &&

@@ -17,12 +17,7 @@ test_expect_success 'Initialize test directory' '
 	git commit -m "add normal files"
 '
 
-if test_have_prereq !FUNNYNAMES
-then
-	say 'Your filesystem does not allow tabs in filenames.'
-fi
-
-test_expect_success FUNNYNAMES 'add files with funny names' '
+test_expect_success FS_NAME_TAB,FS_NAME_NEWLINE 'add files with funny names' '
 	touch -- "tab	embedded" "newline${LF}embedded" &&
 	git add -- "tab	embedded" "newline${LF}embedded" &&
 	git commit -m "add files with tabs and newlines"
@@ -94,8 +89,12 @@ test_expect_success 'Test that "git rm -- -q" succeeds (remove a file that looks
 	git rm -- -q
 '
 
-test_expect_success FUNNYNAMES 'Test that "git rm -f" succeeds with embedded space, tab, or newline characters.' '
-	git rm -f "space embedded" "tab	embedded" "newline${LF}embedded"
+test_expect_success FS_NAME_TAB,FS_NAME_NEWLINE 'Test that "git rm -f" succeeds with embedded tab or newline characters.' '
+	git rm -f "tab	embedded" "newline${LF}embedded"
+'
+
+test_expect_success 'Test that "git rm -f" succeeds with embedded space.' '
+	git rm -f "space embedded"
 '
 
 test_expect_success SANITY 'Test that "git rm -f" fails if its rm fails' '
