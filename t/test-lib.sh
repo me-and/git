@@ -1714,6 +1714,10 @@ embedded" 2>/dev/null &&
 	rm -- "FUNNYNAMES newline
 embedded" 2>/dev/null
 '
+test_lazy_prereq FS_NAME_BACKSLASH '
+	touch -- "FUNNYNAMES backslash\\embedded" 2>/dev/null &&
+	rm -- "FUNNYNAMES backslash\\embedded" 2>/dev/null
+'
 
 # Please use a more specific FS_NAME_* check if possible.
 test_lazy_prereq FUNNYNAMES '

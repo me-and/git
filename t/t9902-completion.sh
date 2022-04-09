@@ -1529,8 +1529,7 @@ test_expect_success 'cone mode sparse-checkout completes directory names with sp
 	)
 '
 
-# use FUNNYNAMES to avoid running on Windows, which doesn't permit tabs in paths
-test_expect_success FUNNYNAMES 'cone mode sparse-checkout completes directory names with tabs' '
+test_expect_success FS_NAME_TAB 'cone mode sparse-checkout completes directory names with tabs' '
 	# reset sparse-checkout
 	git -C sparse-checkout sparse-checkout disable &&
 	(
@@ -1550,8 +1549,7 @@ test_expect_success FUNNYNAMES 'cone mode sparse-checkout completes directory na
 	)
 '
 
-# use FUNNYNAMES to avoid running on Windows, and !CYGWIN for Cygwin, as neither permit backslashes in paths
-test_expect_success FUNNYNAMES,!CYGWIN 'cone mode sparse-checkout completes directory names with backslashes' '
+test_expect_success FS_NAME_BACKSLASH 'cone mode sparse-checkout completes directory names with backslashes' '
 	# reset sparse-checkout
 	git -C sparse-checkout sparse-checkout disable &&
 	(
